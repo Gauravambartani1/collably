@@ -9,6 +9,7 @@ import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { motion } from "motion/react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface Creator {
   id: number;

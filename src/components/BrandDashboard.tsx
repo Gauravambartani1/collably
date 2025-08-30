@@ -399,7 +399,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                 placeholder="Search creators..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder-gray-400 h-12"
+                className="pl-10 h-12"
               />
             </div>
 
@@ -410,7 +410,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                 <SelectTrigger className="w-48 bg-gray-800 border-gray-700 text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-800 border-gray-700">
+                <SelectContent>
                   <SelectItem value="featured">Featured</SelectItem>
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
@@ -427,7 +427,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
           <div className="flex-1">
             {/* Results Count */}
             <div className="mb-6">
-              <p className="text-gray-400">
+              <p className="text-muted-foreground">
                 Showing {sortedCreators.length} creators
               </p>
             </div>
@@ -440,7 +440,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer border border-gray-700"
+                  className="bg-card rounded-xl p-6 hover:bg-accent/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer border border-border"
                 >
                   <div className="space-y-4">
                     {/* Profile Header */}
@@ -461,13 +461,13 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-white truncate">{creator.name}</h3>
-                          <p className="text-sm text-gray-400 truncate">{creator.descriptor}</p>
+                          <h3 className="font-medium text-foreground truncate">{creator.name}</h3>
+                          <p className="text-sm text-muted-foreground truncate">{creator.descriptor}</p>
                         </div>
                       </div>
                       <Badge 
                         variant="outline" 
-                        className="text-xs border-gray-600 text-gray-300"
+                        className="text-xs"
                       >
                         {creator.category}
                       </Badge>
@@ -476,7 +476,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                     {/* Platform Icons */}
                     <div className="flex items-center space-x-2">
                       {creator.platforms.map((platform) => (
-                        <div key={platform} className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+                        <div key={platform} className="w-8 h-8 bg-muted rounded-lg flex items-center justify-center">
                           {getPlatformIcon(platform)}
                         </div>
                       ))}
@@ -486,39 +486,39 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                     <div className="space-y-2">
                       {creator.instagramFollowers && (
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">Instagram</span>
-                          <span className="text-white">{creator.instagramFollowers}</span>
+                          <span className="text-muted-foreground">Instagram</span>
+                          <span className="text-foreground">{creator.instagramFollowers}</span>
                         </div>
                       )}
                       {creator.tiktokFollowers && (
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">TikTok</span>
-                          <span className="text-white">{creator.tiktokFollowers}</span>
+                          <span className="text-muted-foreground">TikTok</span>
+                          <span className="text-foreground">{creator.tiktokFollowers}</span>
                         </div>
                       )}
                       {creator.youtubeSubscribers && (
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">YouTube</span>
-                          <span className="text-white">{creator.youtubeSubscribers}</span>
+                          <span className="text-muted-foreground">YouTube</span>
+                          <span className="text-foreground">{creator.youtubeSubscribers}</span>
                         </div>
                       )}
                       {creator.linkedinFollowers && (
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">LinkedIn</span>
-                          <span className="text-white">{creator.linkedinFollowers}</span>
+                          <span className="text-muted-foreground">LinkedIn</span>
+                          <span className="text-foreground">{creator.linkedinFollowers}</span>
                         </div>
                       )}
                     </div>
 
                     {/* Audience Match */}
-                    <div className="bg-gray-700 rounded-lg p-3">
+                    <div className="bg-muted rounded-lg p-3">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-gray-300">Audience Match</span>
-                        <span className="text-sm font-medium text-teal-400">{creator.audienceMatch}%</span>
+                        <span className="text-sm text-muted-foreground">Audience Match</span>
+                        <span className="text-sm font-medium text-orange-500">{creator.audienceMatch}%</span>
                       </div>
-                      <div className="w-full bg-gray-600 rounded-full h-2">
+                      <div className="w-full bg-muted-foreground/20 rounded-full h-2">
                         <div 
-                          className="bg-gradient-to-r from-purple-500 to-teal-500 h-2 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-orange-500 to-pink-500 h-2 rounded-full transition-all duration-300"
                           style={{ width: `${creator.audienceMatch}%` }}
                         ></div>
                       </div>
@@ -527,17 +527,17 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                     {/* Pricing & Rating */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-lg font-bold text-white">{formatPrice(creator.startingPrice)}</p>
-                        <p className="text-xs text-gray-400">starting collaboration</p>
+                        <p className="text-lg font-bold text-foreground">{formatPrice(creator.startingPrice)}</p>
+                        <p className="text-xs text-muted-foreground">starting collaboration</p>
                       </div>
                       <div className="flex items-center space-x-1">
                         <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="text-sm text-white">{creator.rating}</span>
+                        <span className="text-sm text-foreground">{creator.rating}</span>
                       </div>
                     </div>
 
                     {/* CTA Button */}
-                    <Button className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white">
+                    <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white">
                       View Profile
                     </Button>
                   </div>
@@ -547,17 +547,17 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
           </div>
 
           {/* Filter Sidebar */}
-          <div className="w-80 bg-gray-800 rounded-xl p-6 h-fit border border-gray-700">
+          <div className="w-80 bg-card rounded-xl p-6 h-fit border border-border">
             <div className="flex items-center space-x-2 mb-6">
-              <Filter className="w-5 h-5 text-gray-400" />
-              <h3 className="font-medium text-white">Filters</h3>
+              <Filter className="w-5 h-5 text-muted-foreground" />
+              <h3 className="font-medium text-foreground">Filters</h3>
             </div>
 
             <div className="space-y-6">
               {/* Category Filter */}
               <Collapsible open={categoryOpen} onOpenChange={setCategoryOpen}>
                 <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-left">
-                  <span className="font-medium text-white">Category</span>
+                  <span className="font-medium text-foreground">Category</span>
                   {categoryOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-3 mt-3">
@@ -567,9 +567,8 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                         id={category}
                         checked={selectedCategories.includes(category)}
                         onCheckedChange={(checked) => handleCategoryChange(category, checked as boolean)}
-                        className="border-gray-600 data-[state=checked]:bg-purple-600"
                       />
-                      <label htmlFor={category} className="text-sm text-gray-300 cursor-pointer">
+                      <label htmlFor={category} className="text-sm text-muted-foreground cursor-pointer">
                         {category}
                       </label>
                     </div>
@@ -580,7 +579,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
               {/* Price Range Filter */}
               <Collapsible open={priceOpen} onOpenChange={setPriceOpen}>
                 <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-left">
-                  <span className="font-medium text-white">Price Range</span>
+                  <span className="font-medium text-foreground">Price Range</span>
                   {priceOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-4 mt-3">
@@ -593,7 +592,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                       step={5000}
                       className="w-full"
                     />
-                    <div className="flex items-center justify-between mt-2 text-sm text-gray-400">
+                    <div className="flex items-center justify-between mt-2 text-sm text-muted-foreground">
                       <span>{formatPrice(priceRange[0])}</span>
                       <span>{formatPrice(priceRange[1])}</span>
                     </div>
@@ -604,7 +603,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
               {/* Follower Count Filter */}
               <Collapsible open={followerOpen} onOpenChange={setFollowerOpen}>
                 <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-left">
-                  <span className="font-medium text-white">Follower Count</span>
+                  <span className="font-medium text-foreground">Follower Count</span>
                   {followerOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-4 mt-3">
@@ -617,7 +616,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                       step={50000}
                       className="w-full"
                     />
-                    <div className="flex items-center justify-between mt-2 text-sm text-gray-400">
+                    <div className="flex items-center justify-between mt-2 text-sm text-muted-foreground">
                       <span>{followerRange[0] >= 1000000 ? `${(followerRange[0]/1000000).toFixed(1)}M` : `${(followerRange[0]/1000).toFixed(0)}K`}</span>
                       <span>{followerRange[1] >= 1000000 ? `${(followerRange[1]/1000000).toFixed(1)}M` : `${(followerRange[1]/1000).toFixed(0)}K`}</span>
                     </div>
@@ -628,7 +627,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
               {/* Platform Filter */}
               <Collapsible open={platformOpen} onOpenChange={setPlatformOpen}>
                 <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-left">
-                  <span className="font-medium text-white">Platforms</span>
+                  <span className="font-medium text-foreground">Platforms</span>
                   {platformOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-3 mt-3">
@@ -638,9 +637,8 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                         id={platform}
                         checked={selectedPlatforms.includes(platform)}
                         onCheckedChange={(checked) => handlePlatformChange(platform, checked as boolean)}
-                        className="border-gray-600 data-[state=checked]:bg-purple-600"
                       />
-                      <label htmlFor={platform} className="text-sm text-gray-300 cursor-pointer flex items-center space-x-2">
+                      <label htmlFor={platform} className="text-sm text-muted-foreground cursor-pointer flex items-center space-x-2">
                         {getPlatformIcon(platform)}
                         <span>{platform}</span>
                       </label>
@@ -653,7 +651,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
             {/* Clear Filters */}
             <Button 
               variant="outline" 
-              className="w-full mt-6 border-gray-600 text-gray-300 hover:bg-gray-700"
+              className="w-full mt-6"
               onClick={() => {
                 setSelectedCategories([]);
                 setSelectedPlatforms([]);

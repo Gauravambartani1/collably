@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { motion } from "motion/react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface BrandLandingPageProps {
   onStartOnboarding: () => void;

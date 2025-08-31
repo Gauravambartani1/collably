@@ -12,7 +12,7 @@ interface LandingPageProps {
 
 export function LandingPage({ onStartOnboarding, onGoToBrandLanding }: LandingPageProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-900">
       <LandingHero onStartOnboarding={onStartOnboarding} onGoToBrandLanding={onGoToBrandLanding} />
       <ProblemSolution />
       <FeaturesSection />

@@ -90,21 +90,20 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
+    <div className="min-h-screen bg-gray-900">
       {/* Navigation */}
-      <nav className="px-6 py-4 border-b border-border bg-background/95 backdrop-blur sticky top-0 z-50">
+      <nav className="px-6 py-4 border-b border-gray-800 bg-gray-900/95 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-pink-500 rounded-lg"></div>
-            <span className="font-bold text-foreground text-xl">Collably</span>
+            <span className="font-bold text-white text-xl">Collably</span>
           </div>
           
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
             <Button
               onClick={onBackToCreatorLanding}
               variant="ghost"
-              className="text-muted-foreground hover:text-foreground"
+              className="text-gray-400 hover:text-white"
             >
               For Creators
             </Button>
@@ -246,13 +245,13 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
       </section>
 
       {/* Pain vs Solution */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-6 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-white mb-4">
               Why brands struggle with creator partnerships
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Traditional outreach is broken. Collably fixes it.
             </p>
           </div>
@@ -272,32 +271,32 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <X className="w-5 h-5 text-red-600" />
+                  <div className="w-10 h-10 bg-red-900/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <X className="w-5 h-5 text-red-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Endless DMs</h4>
-                    <p className="text-gray-600">Hunting through Instagram, sending hundreds of cold messages with poor response rates.</p>
+                    <h4 className="font-medium text-white mb-2">Endless DMs</h4>
+                    <p className="text-gray-300">Hunting through Instagram, sending hundreds of cold messages with poor response rates.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <X className="w-5 h-5 text-red-600" />
+                  <div className="w-10 h-10 bg-red-900/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <X className="w-5 h-5 text-red-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Unverified Numbers</h4>
-                    <p className="text-gray-600">Creators show you screenshots that could be fake. No way to verify real engagement.</p>
+                    <h4 className="font-medium text-white mb-2">Unverified Numbers</h4>
+                    <p className="text-gray-300">Creators show you screenshots that could be fake. No way to verify real engagement.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <X className="w-5 h-5 text-red-600" />
+                  <div className="w-10 h-10 bg-red-900/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <X className="w-5 h-5 text-red-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Unpredictable Outcomes</h4>
-                    <p className="text-gray-600">No historical data, unclear pricing, and campaigns that take months to launch.</p>
+                    <h4 className="font-medium text-white mb-2">Unpredictable Outcomes</h4>
+                    <p className="text-gray-300">No historical data, unclear pricing, and campaigns that take months to launch.</p>
                   </div>
                 </div>
               </div>
@@ -316,32 +315,32 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 bg-green-900/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Curated Matches</h4>
-                    <p className="text-gray-600">Our platform connects you with pre-vetted creators who match your brand and audience.</p>
+                    <h4 className="font-medium text-white mb-2">Curated Matches</h4>
+                    <p className="text-gray-300">Our platform connects you with pre-vetted creators who match your brand and audience.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 bg-green-900/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Verified Analytics</h4>
-                    <p className="text-gray-600">All metrics are pulled directly from Instagram Insights and TikTok Studio. No fake numbers.</p>
+                    <h4 className="font-medium text-white mb-2">Verified Analytics</h4>
+                    <p className="text-gray-300">All metrics are pulled directly from Instagram Insights and TikTok Studio. No fake numbers.</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 bg-green-900/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Transparent & Fast</h4>
-                    <p className="text-gray-600">Clear pricing upfront, campaign history visible, and launch partnerships in days not months.</p>
+                    <h4 className="font-medium text-white mb-2">Transparent & Fast</h4>
+                    <p className="text-gray-300">Clear pricing upfront, campaign history visible, and launch partnerships in days not months.</p>
                   </div>
                 </div>
               </div>
@@ -351,13 +350,13 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-gray-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-white mb-4">
               How it works
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               From brief to campaign launch in three simple steps
             </p>
           </div>
@@ -395,21 +394,21 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 h-full">
+                  <div className="bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-700 h-full">
                     <div className={`w-16 h-16 bg-gradient-to-r ${item.color} rounded-2xl flex items-center justify-center mb-6`}>
                       <IconComponent className="w-8 h-8 text-white" />
                     </div>
                     
                     <div className="mb-4">
-                      <div className="text-sm font-bold text-gray-400 mb-2">STEP {item.step}</div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
-                      <p className="text-gray-600 leading-relaxed">{item.description}</p>
+                      <div className="text-sm font-bold text-gray-500 mb-2">STEP {item.step}</div>
+                      <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                      <p className="text-gray-300 leading-relaxed">{item.description}</p>
                     </div>
                   </div>
 
                   {/* Connection Line */}
                   {index < 2 && (
-                    <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-gray-300 to-transparent transform -translate-y-1/2 z-10"></div>
+                    <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-gray-600 to-transparent transform -translate-y-1/2 z-10"></div>
                   )}
                 </motion.div>
               );
@@ -419,23 +418,23 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
       </section>
 
       {/* Creator Discovery Preview */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-6 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-white mb-4">
               Discover creators that fit your brand
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Browse verified creators with transparent metrics and pricing
             </p>
           </div>
 
           {/* Filters */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 mb-8">
+          <div className="bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-700 mb-8">
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center space-x-2">
                 <Filter className="w-5 h-5 text-gray-400" />
-                <span className="font-medium text-gray-700">Filters:</span>
+                <span className="font-medium text-gray-300">Filters:</span>
               </div>
               
               <div className="flex flex-wrap gap-2">
@@ -446,7 +445,7 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
                     className={`px-4 py-2 rounded-full transition-colors ${
                       selectedCategory === category
                         ? 'bg-orange-500 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                     }`}
                   >
                     {category}
@@ -454,7 +453,7 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
                 ))}
               </div>
 
-              <div className="w-px h-6 bg-gray-300"></div>
+              <div className="w-px h-6 bg-gray-600"></div>
 
               <div className="flex flex-wrap gap-2">
                 {budgetRanges.map((budget) => (
@@ -464,7 +463,7 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
                     className={`px-4 py-2 rounded-full transition-colors ${
                       selectedBudget === budget
                         ? 'bg-orange-500 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                     }`}
                   >
                     {budget}
@@ -479,7 +478,7 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
             {sampleCreators.map((creator, index) => (
               <motion.div 
                 key={creator.id}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                className="bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-700 hover:shadow-xl transition-shadow"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -495,38 +494,38 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
                         />
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-900">{creator.name}</h4>
-                        <p className="text-sm text-gray-500">{creator.handle}</p>
+                        <h4 className="font-medium text-white">{creator.name}</h4>
+                        <p className="text-sm text-gray-400">{creator.handle}</p>
                       </div>
                     </div>
                     {creator.verified && (
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                      <Badge className="bg-green-900/20 text-green-400 border-green-600">
                         <Shield className="w-3 h-3 mr-1" />
                         Verified
                       </Badge>
                     )}
                   </div>
 
-                  <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="bg-gray-800 rounded-xl p-4">
                     <div className="grid grid-cols-2 gap-4 text-center">
                       <div>
-                        <div className="font-bold text-gray-900">{creator.followers}</div>
-                        <div className="text-xs text-gray-500">Followers</div>
+                        <div className="font-bold text-white">{creator.followers}</div>
+                        <div className="text-xs text-gray-400">Followers</div>
                       </div>
                       <div>
-                        <div className="font-bold text-orange-600">{creator.engagement}</div>
-                        <div className="text-xs text-gray-500">Engagement</div>
+                        <div className="font-bold text-orange-400">{creator.engagement}</div>
+                        <div className="text-xs text-gray-400">Engagement</div>
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs border-gray-600 text-gray-300">
                       {creator.niche}
                     </Badge>
-                    <p className="text-sm text-gray-600">{creator.lastCampaign}</p>
+                    <p className="text-sm text-gray-300">{creator.lastCampaign}</p>
                     <div className="flex items-center justify-between">
-                      <span className="font-medium text-gray-900">{creator.priceRange}</span>
+                      <span className="font-medium text-white">{creator.priceRange}</span>
                       <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
                         View Profile
                       </Button>
@@ -541,7 +540,7 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
             <Button 
               onClick={handleBrowseCreators}
               variant="outline"
-              className="border-orange-500 text-orange-600 hover:bg-orange-50 px-8 py-3"
+              className="border-orange-500 text-orange-400 hover:bg-orange-900/20 px-8 py-3"
             >
               Browse all creators →
             </Button>
@@ -550,43 +549,43 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
       </section>
 
       {/* Trust & Speed Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-gray-900">
         <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-white mb-4">
               Campaigns that start in days, not months
             </h2>
-            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
               From brief to live collaboration in under a week—with transparent pricing and verified data.
             </p>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="flex flex-col items-center space-y-4">
-                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-green-600" />
+                <div className="w-16 h-16 bg-green-900/20 rounded-2xl flex items-center justify-center">
+                  <Shield className="w-8 h-8 text-green-400" />
                 </div>
-                <h3 className="font-bold text-gray-900">Verified Metrics</h3>
-                <p className="text-gray-600 text-center">All engagement data pulled directly from platform analytics</p>
+                <h3 className="font-bold text-white">Verified Metrics</h3>
+                <p className="text-gray-300 text-center">All engagement data pulled directly from platform analytics</p>
               </div>
 
               <div className="flex flex-col items-center space-y-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center">
-                  <Eye className="w-8 h-8 text-blue-600" />
+                <div className="w-16 h-16 bg-blue-900/20 rounded-2xl flex items-center justify-center">
+                  <Eye className="w-8 h-8 text-blue-400" />
                 </div>
-                <h3 className="font-bold text-gray-900">Transparent Pricing</h3>
-                <p className="text-gray-600 text-center">See creator rates upfront with no hidden fees or markups</p>
+                <h3 className="font-bold text-white">Transparent Pricing</h3>
+                <p className="text-gray-300 text-center">See creator rates upfront with no hidden fees or markups</p>
               </div>
 
               <div className="flex flex-col items-center space-y-4">
-                <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center">
-                  <Clock className="w-8 h-8 text-orange-600" />
+                <div className="w-16 h-16 bg-orange-900/20 rounded-2xl flex items-center justify-center">
+                  <Clock className="w-8 h-8 text-orange-400" />
                 </div>
-                <h3 className="font-bold text-gray-900">Lightning Fast</h3>
-                <p className="text-gray-600 text-center">Get matched with creators in 24hrs, launch in under a week</p>
+                <h3 className="font-bold text-white">Lightning Fast</h3>
+                <p className="text-gray-300 text-center">Get matched with creators in 24hrs, launch in under a week</p>
               </div>
             </div>
           </motion.div>
@@ -594,13 +593,13 @@ export function BrandLandingPage({ onStartOnboarding, onBackToCreatorLanding }: 
       </section>
 
       {/* Comparison Grid */}
-      <section className="py-20 px-6 bg-gray-50">
+      <section className="py-20 px-6 bg-gray-800">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-white mb-4">
               Why brands choose Collably
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-300">
               Stop wasting time on traditional outreach that doesn't work
             </p>
           </div>

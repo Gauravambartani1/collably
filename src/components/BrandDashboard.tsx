@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Filter, ChevronDown, Instagram, Youtube, Linkedin, ArrowUpDown, Users, Eye, Star, ChevronUp, Play } from "lucide-react";
+import { Search, Filter, ChevronDown, Instagram, Youtube, Linkedin, ArrowUpDown, Users, Eye, Star, ChevronUp, Play, Heart, Twitter } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -9,14 +9,17 @@ import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { motion } from "motion/react";
+import { CreatorProfileModal } from "./CreatorProfileModal";
 
 interface Creator {
   id: number;
   name: string;
   descriptor: string;
+  bio: string;
   category: string;
   profileImage: string;
   instagramFollowers: string;
+  twitterFollowers?: string;
   tiktokFollowers?: string;
   youtubeSubscribers?: string;
   linkedinFollowers?: string;
@@ -38,6 +41,11 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
   const [priceRange, setPriceRange] = useState([10000, 100000]);
   const [followerRange, setFollowerRange] = useState([20000, 2000000]);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
+  
+  // Modal state
+  const [selectedCreator, setSelectedCreator] = useState<Creator | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Filter panel state
   const [categoryOpen, setCategoryOpen] = useState(true);
@@ -46,7 +54,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
   const [platformOpen, setPlatformOpen] = useState(true);
 
   const categories = ["Lifestyle", "Tech", "Comedy", "Fashion", "Fitness", "Food", "Beauty", "Travel"];
-  const platforms = ["Instagram", "TikTok", "YouTube", "LinkedIn"];
+  const platforms = ["Instagram", "Twitter", "TikTok", "YouTube", "LinkedIn"];
 
   // Dummy creator data
   const allCreators: Creator[] = [
@@ -54,13 +62,15 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 1,
       name: "Aisha Khan",
       descriptor: "Lifestyle Creator",
+      bio: "Authentic lifestyle content with a focus on wellness, travel, and everyday inspiration. Creating meaningful connections with millennial women.",
       category: "Lifestyle",
       profileImage: "https://images.unsplash.com/photo-1661436170168-7ce82d649532?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3b21hbiUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NjQ2NzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "485K",
+      twitterFollowers: "42K",
       tiktokFollowers: "320K",
       youtubeSubscribers: "125K",
       startingPrice: 25000,
-      platforms: ["Instagram", "TikTok", "YouTube"],
+      platforms: ["Instagram", "Twitter", "TikTok", "YouTube"],
       audienceMatch: 94,
       verified: true,
       rating: 4.9
@@ -69,13 +79,15 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 2,
       name: "Marcus Rodriguez",
       descriptor: "Comedy & Entertainment",
+      bio: "Stand-up comedian turned digital creator. Viral comedy skits and relatable content that resonates with Gen Z and millennial audiences.",
       category: "Comedy",
       profileImage: "https://images.unsplash.com/photo-1520529277867-dbf8c5e0b340?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwcGVvcGxlJTIwcG9ydHJhaXRzJTIwcHJvZmlsZSUyMHBpY3R1cmVzfGVufDF8fHx8MTc1NjU1NDA2MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "1.2M",
+      twitterFollowers: "156K",
       tiktokFollowers: "2.1M",
       youtubeSubscribers: "890K",
       startingPrice: 75000,
-      platforms: ["Instagram", "TikTok", "YouTube"],
+      platforms: ["Instagram", "Twitter", "TikTok", "YouTube"],
       audienceMatch: 89,
       verified: true,
       rating: 4.8
@@ -84,13 +96,15 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 3,
       name: "Priya Sharma",
       descriptor: "Fashion & Style",
+      bio: "Sustainable fashion advocate and style influencer. Curating affordable fashion looks and promoting conscious consumption among young professionals.",
       category: "Fashion",
       profileImage: "https://images.unsplash.com/photo-1706025090794-7ade2c1b6208?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzU2NTU0MDYzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "675K",
+      twitterFollowers: "85K",
       tiktokFollowers: "125K",
       youtubeSubscribers: "45K",
       startingPrice: 35000,
-      platforms: ["Instagram", "TikTok", "YouTube"],
+      platforms: ["Instagram", "Twitter", "TikTok", "YouTube"],
       audienceMatch: 91,
       verified: true,
       rating: 4.7
@@ -99,13 +113,15 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 4,
       name: "David Chen",
       descriptor: "Tech Reviewer & Educator",
+      bio: "In-depth tech reviews and educational content for gadget enthusiasts. Helping consumers make informed decisions about their tech purchases.",
       category: "Tech",
       profileImage: "https://images.unsplash.com/photo-1611403119860-57c4937ef987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc2lhbiUyMGNvbnRlbnQlMjBjcmVhdG9yJTIwcG9ydHJhaXQlMjBzbWlsZXxlbnwxfHx8fDE3NTY1NTQwNzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "320K",
+      twitterFollowers: "95K",
       youtubeSubscribers: "1.5M",
       linkedinFollowers: "85K",
       startingPrice: 45000,
-      platforms: ["Instagram", "YouTube", "LinkedIn"],
+      platforms: ["Instagram", "Twitter", "YouTube", "LinkedIn"],
       audienceMatch: 96,
       verified: true,
       rating: 4.9
@@ -114,13 +130,15 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 5,
       name: "Sofia Martinez",
       descriptor: "Fitness & Wellness Coach",
+      bio: "Certified fitness trainer and wellness advocate. Sharing workout routines, healthy recipes, and mindfulness practices for a balanced lifestyle.",
       category: "Fitness",
       profileImage: "https://images.unsplash.com/photo-1621011075232-00178254fa1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMHlvdW5nJTIwcGVvcGxlJTIwZGl2ZXJzZSUyMHBvcnRyYWl0c3xlbnwxfHx8fDE3NTY1NTQwNzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "785K",
+      twitterFollowers: "128K",
       tiktokFollowers: "425K",
       youtubeSubscribers: "235K",
       startingPrice: 30000,
-      platforms: ["Instagram", "TikTok", "YouTube"],
+      platforms: ["Instagram", "Twitter", "TikTok", "YouTube"],
       audienceMatch: 88,
       verified: true,
       rating: 4.8
@@ -129,6 +147,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 6,
       name: "Raj Patel",
       descriptor: "Food & Cooking Expert",
+      bio: "Master chef and culinary storyteller. Bringing authentic Indian recipes and fusion cuisine to food lovers worldwide with easy-to-follow tutorials.",
       category: "Food",
       profileImage: "https://images.unsplash.com/photo-1613053341085-db794820ce43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWxsZW5uaWFsJTIwaW5mbHVlbmNlciUyMGxpZmVzdHlsZSUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NjU1NDA3NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "520K",
@@ -144,6 +163,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 7,
       name: "Emma Johnson",
       descriptor: "Beauty & Skincare",
+      bio: "Licensed esthetician and beauty expert. Sharing honest product reviews, skincare routines, and makeup tutorials for all skin types and budgets.",
       category: "Beauty",
       profileImage: "https://images.unsplash.com/photo-1520529277867-dbf8c5e0b340?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwcGVvcGxlJTIwcG9ydHJhaXRzJTIwcHJvZmlsZSUyMHBpY3R1cmVzfGVufDF8fHx8MTc1NjU1NDA2MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "650K",
@@ -159,6 +179,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 8,
       name: "James Wilson",
       descriptor: "Travel & Adventure",
+      bio: "Adventure photographer and travel enthusiast. Documenting breathtaking destinations and sharing budget travel tips for the modern explorer.",
       category: "Travel",
       profileImage: "https://images.unsplash.com/photo-1706025090794-7ade2c1b6208?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzU2NTU0MDYzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "425K",
@@ -174,12 +195,14 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 9,
       name: "Neha Gupta",
       descriptor: "Lifestyle & Home",
+      bio: "Interior design enthusiast and home organization expert. Creating beautiful, functional spaces on a budget and sharing DIY home improvement projects.",
       category: "Lifestyle",
       profileImage: "https://images.unsplash.com/photo-1661436170168-7ce82d649532?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3b21hbiUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NjQ2NzIxNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "385K",
+      twitterFollowers: "58K",
       youtubeSubscribers: "125K",
       startingPrice: 22000,
-      platforms: ["Instagram", "YouTube"],
+      platforms: ["Instagram", "Twitter", "YouTube"],
       audienceMatch: 90,
       verified: false,
       rating: 4.5
@@ -188,6 +211,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 10,
       name: "Alex Kim",
       descriptor: "Gaming & Esports",
+      bio: "Professional esports player and gaming content creator. Providing gameplay tutorials, reviews, and entertainment for the gaming community.",
       category: "Tech",
       profileImage: "https://images.unsplash.com/photo-1611403119860-57c4937ef987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc2lhbiUyMGNvbnRlbnQlMjBjcmVhdG9yJTIwcG9ydHJhaXQlMjBzbWlsZXxlbnwxfHx8fDE3NTY1NTQwNzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "280K",
@@ -203,6 +227,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 11,
       name: "Lila Thompson",
       descriptor: "Sustainable Fashion",
+      bio: "Eco-conscious fashion blogger promoting sustainable style choices. Showcasing ethical brands, thrift finds, and slow fashion principles.",
       category: "Fashion",
       profileImage: "https://images.unsplash.com/photo-1621011075232-00178254fa1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMHlvdW5nJTIwcGVvcGxlJTIwZGl2ZXJzZSUyMHBvcnRyYWl0c3xlbnwxfHx8fDE3NTY1NTQwNzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "195K",
@@ -218,6 +243,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 12,
       name: "Carlos Rivera",
       descriptor: "Music & Entertainment",
+      bio: "Singer-songwriter and music producer creating original music and covers. Connecting with music lovers through live performances and behind-the-scenes content.",
       category: "Comedy",
       profileImage: "https://images.unsplash.com/photo-1613053341085-db794820ce43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaWxsZW5uaWFsJTIwaW5mbHVlbmNlciUyMGxpZmVzdHlsZSUyMHBvcnRyYWl0fGVufDF8fHx8MTc1NjU1NDA3NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "720K",
@@ -233,6 +259,7 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 13,
       name: "Arun Krishnan",
       descriptor: "Startup & Business",
+      bio: "Serial entrepreneur and business mentor. Sharing startup insights, funding tips, and entrepreneurial journey stories for aspiring business owners.",
       category: "Tech",
       profileImage: "https://images.unsplash.com/photo-1520529277867-dbf8c5e0b340?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwcGVvcGxlJTIwcG9ydHJhaXRzJTIwcHJvZmlsZSUyMHBpY3R1cmVzfGVufDF8fHx8MTc1NjU1NDA2MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "95K",
@@ -248,12 +275,14 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
       id: 14,
       name: "Maya Patel",
       descriptor: "Yoga & Mindfulness",
+      bio: "Certified yoga instructor and mindfulness coach. Promoting mental health awareness through guided meditations, yoga flows, and self-care practices.",
       category: "Fitness",
       profileImage: "https://images.unsplash.com/photo-1706025090794-7ade2c1b6208?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx5b3VuZyUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzU2NTU0MDYzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
       instagramFollowers: "425K",
+      twitterFollowers: "67K",
       youtubeSubscribers: "195K",
       startingPrice: 20000,
-      platforms: ["Instagram", "YouTube"],
+      platforms: ["Instagram", "Twitter", "YouTube"],
       audienceMatch: 88,
       verified: false,
       rating: 4.6
@@ -326,10 +355,22 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
 
   const getPlatformIcon = (platform: string) => {
     switch (platform) {
-      case "Instagram": return <Instagram className="w-4 h-4" />;
-      case "TikTok": return <Play className="w-4 h-4" />;
-      case "YouTube": return <Youtube className="w-4 h-4" />;
-      case "LinkedIn": return <Linkedin className="w-4 h-4" />;
+      case "Instagram": return <Instagram className="w-5 h-5" />;
+      case "Twitter": return <Twitter className="w-5 h-5" />;
+      case "TikTok": return <Play className="w-5 h-5" />;
+      case "YouTube": return <Youtube className="w-5 h-5" />;
+      case "LinkedIn": return <Linkedin className="w-5 h-5" />;
+      default: return null;
+    }
+  };
+
+  const getPlatformFollowers = (creator: Creator, platform: string) => {
+    switch (platform) {
+      case "Instagram": return creator.instagramFollowers;
+      case "Twitter": return creator.twitterFollowers;
+      case "TikTok": return creator.tiktokFollowers;
+      case "YouTube": return creator.youtubeSubscribers;
+      case "LinkedIn": return creator.linkedinFollowers;
       default: return null;
     }
   };
@@ -350,32 +391,50 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
     }
   };
 
+  const handleCreatorClick = (creator: Creator) => {
+    setSelectedCreator(creator);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCreator(null);
+  };
+
+  const handleToggleFavorite = (creatorId: number) => {
+    setFavorites(prev => 
+      prev.includes(creatorId) 
+        ? prev.filter(id => id !== creatorId)
+        : [...prev, creatorId]
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+    <div className="min-h-screen bg-gray-900 text-white">
       {/* Header Navigation */}
-      <header className="bg-card border-b border-border">
+      <header className="bg-black border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-teal-500 rounded-lg"></div>
-              <span className="text-xl font-bold text-foreground">Collably</span>
+              <span className="text-xl font-bold text-white">Collably</span>
             </div>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <button className="text-muted-foreground hover:text-foreground transition-colors">Browse Creators</button>
-              <button className="text-muted-foreground hover:text-foreground transition-colors">Case Studies</button>
-              <button className="text-muted-foreground hover:text-foreground transition-colors">Pricing</button>
-              <button className="text-muted-foreground hover:text-foreground transition-colors">Contact Sales</button>
+              <button className="text-gray-300 hover:text-white transition-colors">Browse Creators</button>
+              <button className="text-gray-300 hover:text-white transition-colors">Case Studies</button>
+              <button className="text-gray-300 hover:text-white transition-colors">Pricing</button>
+              <button className="text-gray-300 hover:text-white transition-colors">Contact Sales</button>
             </nav>
 
             {/* CTA */}
             <div className="flex items-center space-x-4">
-              <ThemeToggle />
               <Button 
                 onClick={onLogout}
                 variant="outline"
+                className="border-gray-600 text-gray-300 hover:bg-gray-800"
               >
                 Logout
               </Button>
@@ -432,113 +491,99 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
             </div>
 
             {/* Creator Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {sortedCreators.map((creator, index) => (
                 <motion.div
                   key={creator.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl cursor-pointer border border-gray-700"
+                  onClick={() => handleCreatorClick(creator)}
+                  className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-2xl cursor-pointer border border-gray-700 relative"
                 >
-                  <div className="space-y-4">
-                    {/* Profile Header */}
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="relative">
-                          <div className="w-12 h-12 rounded-full overflow-hidden">
-                            <ImageWithFallback
-                              src={creator.profileImage}
-                              alt={creator.name}
-                              className="w-full h-full object-cover"
-                            />
+                  {/* Heart/Favorite Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggleFavorite(creator.id);
+                    }}
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-700 transition-colors z-10"
+                  >
+                    <Heart 
+                      className={`w-5 h-5 transition-colors ${
+                        favorites.includes(creator.id) 
+                          ? 'text-red-500 fill-red-500' 
+                          : 'text-gray-400 hover:text-red-400'
+                      }`}
+                    />
+                  </button>
+
+                  {/* Main Content */}
+                  <div className="flex items-start space-x-4">
+                    {/* Profile Photo */}
+                    <div className="relative flex-shrink-0">
+                      <div className="w-16 h-16 rounded-full overflow-hidden">
+                        <ImageWithFallback
+                          src={creator.profileImage}
+                          alt={creator.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      {creator.verified && (
+                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-purple-600 rounded-full flex items-center justify-center border-2 border-gray-800">
+                          <Star className="w-2.5 h-2.5 text-white fill-current" />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Creator Info */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-white text-lg truncate">{creator.name}</h3>
+                      <p className="text-gray-400 text-sm mt-1 line-clamp-2">{creator.descriptor}</p>
+                    </div>
+                  </div>
+
+                  {/* Social Media Stats */}
+                  <div className="flex items-center space-x-6 mt-4">
+                    {creator.platforms.slice(0, 3).map((platform) => {
+                      const followers = getPlatformFollowers(creator, platform);
+                      if (!followers) return null;
+                      
+                      return (
+                        <div key={platform} className="flex items-center space-x-2">
+                          <div className="w-5 h-5 text-gray-400">
+                            {getPlatformIcon(platform)}
                           </div>
-                          {creator.verified && (
-                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-purple-600 rounded-full flex items-center justify-center">
-                              <Star className="w-3 h-3 text-white fill-current" />
-                            </div>
-                          )}
+                          <span className="text-sm text-white font-medium">{followers}</span>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-white truncate">{creator.name}</h3>
-                          <p className="text-sm text-gray-400 truncate">{creator.descriptor}</p>
-                        </div>
-                      </div>
-                      <Badge 
-                        variant="outline" 
-                        className="text-xs border-gray-600 text-gray-300"
-                      >
-                        {creator.category}
-                      </Badge>
-                    </div>
+                      );
+                    })}
+                  </div>
 
-                    {/* Platform Icons */}
-                    <div className="flex items-center space-x-2">
-                      {creator.platforms.map((platform) => (
-                        <div key={platform} className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
-                          {getPlatformIcon(platform)}
-                        </div>
-                      ))}
+                  {/* Starting Price */}
+                  <div className="mt-6">
+                    <div className="text-2xl font-bold text-white">
+                      {formatPrice(creator.startingPrice)}
+                      <span className="text-sm text-gray-400 font-normal ml-2">starting video price</span>
                     </div>
+                  </div>
 
-                    {/* Stats */}
-                    <div className="space-y-2">
-                      {creator.instagramFollowers && (
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">Instagram</span>
-                          <span className="text-white">{creator.instagramFollowers}</span>
-                        </div>
-                      )}
-                      {creator.tiktokFollowers && (
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">TikTok</span>
-                          <span className="text-white">{creator.tiktokFollowers}</span>
-                        </div>
-                      )}
-                      {creator.youtubeSubscribers && (
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">YouTube</span>
-                          <span className="text-white">{creator.youtubeSubscribers}</span>
-                        </div>
-                      )}
-                      {creator.linkedinFollowers && (
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">LinkedIn</span>
-                          <span className="text-white">{creator.linkedinFollowers}</span>
-                        </div>
-                      )}
+                  {/* Quick Stats - Hidden in compact view */}
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-700">
+                    <div className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
+                      <span className="text-xs text-gray-400">{creator.audienceMatch}% match</span>
                     </div>
-
-                    {/* Audience Match */}
-                    <div className="bg-gray-700 rounded-lg p-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-gray-300">Audience Match</span>
-                        <span className="text-sm font-medium text-teal-400">{creator.audienceMatch}%</span>
-                      </div>
-                      <div className="w-full bg-gray-600 rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-purple-500 to-teal-500 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${creator.audienceMatch}%` }}
-                        ></div>
-                      </div>
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                      <span className="text-xs text-white">{creator.rating}</span>
                     </div>
-
-                    {/* Pricing & Rating */}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-lg font-bold text-white">{formatPrice(creator.startingPrice)}</p>
-                        <p className="text-xs text-gray-400">starting collaboration</p>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="text-sm text-white">{creator.rating}</span>
-                      </div>
-                    </div>
-
-                    {/* CTA Button */}
-                    <Button className="w-full bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700 text-white">
-                      View Profile
-                    </Button>
+                    <Badge 
+                      variant="outline" 
+                      className="text-xs border-gray-600 text-gray-300"
+                    >
+                      {creator.category}
+                    </Badge>
                   </div>
                 </motion.div>
               ))}
@@ -566,7 +611,6 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                         id={category}
                         checked={selectedCategories.includes(category)}
                         onCheckedChange={(checked) => handleCategoryChange(category, checked as boolean)}
-                        className="border-gray-600 data-[state=checked]:bg-purple-600"
                       />
                       <label htmlFor={category} className="text-sm text-gray-300 cursor-pointer">
                         {category}
@@ -583,7 +627,11 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                   {priceOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-4 mt-3">
-                  <div className="px-2">
+                  <div>
+                    <div className="flex justify-between text-sm text-gray-400 mb-2">
+                      <span>{formatPrice(priceRange[0])}</span>
+                      <span>{formatPrice(priceRange[1])}</span>
+                    </div>
                     <Slider
                       value={priceRange}
                       onValueChange={setPriceRange}
@@ -592,22 +640,22 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                       step={5000}
                       className="w-full"
                     />
-                    <div className="flex items-center justify-between mt-2 text-sm text-gray-400">
-                      <span>{formatPrice(priceRange[0])}</span>
-                      <span>{formatPrice(priceRange[1])}</span>
-                    </div>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
 
-              {/* Follower Count Filter */}
+              {/* Follower Range Filter */}
               <Collapsible open={followerOpen} onOpenChange={setFollowerOpen}>
                 <CollapsibleTrigger className="flex items-center justify-between w-full py-2 text-left">
-                  <span className="font-medium text-white">Follower Count</span>
+                  <span className="font-medium text-white">Followers</span>
                   {followerOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-4 mt-3">
-                  <div className="px-2">
+                  <div>
+                    <div className="flex justify-between text-sm text-gray-400 mb-2">
+                      <span>{followerRange[0] >= 1000000 ? `${(followerRange[0]/1000000).toFixed(1)}M` : `${(followerRange[0]/1000).toFixed(0)}K`}</span>
+                      <span>{followerRange[1] >= 1000000 ? `${(followerRange[1]/1000000).toFixed(1)}M` : `${(followerRange[1]/1000).toFixed(0)}K`}</span>
+                    </div>
                     <Slider
                       value={followerRange}
                       onValueChange={setFollowerRange}
@@ -616,10 +664,6 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                       step={50000}
                       className="w-full"
                     />
-                    <div className="flex items-center justify-between mt-2 text-sm text-gray-400">
-                      <span>{followerRange[0] >= 1000000 ? `${(followerRange[0]/1000000).toFixed(1)}M` : `${(followerRange[0]/1000).toFixed(0)}K`}</span>
-                      <span>{followerRange[1] >= 1000000 ? `${(followerRange[1]/1000000).toFixed(1)}M` : `${(followerRange[1]/1000).toFixed(0)}K`}</span>
-                    </div>
                   </div>
                 </CollapsibleContent>
               </Collapsible>
@@ -637,7 +681,6 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                         id={platform}
                         checked={selectedPlatforms.includes(platform)}
                         onCheckedChange={(checked) => handlePlatformChange(platform, checked as boolean)}
-                        className="border-gray-600 data-[state=checked]:bg-purple-600"
                       />
                       <label htmlFor={platform} className="text-sm text-gray-300 cursor-pointer flex items-center space-x-2">
                         {getPlatformIcon(platform)}
@@ -648,24 +691,20 @@ export function BrandDashboard({ onLogout }: BrandDashboardProps) {
                 </CollapsibleContent>
               </Collapsible>
             </div>
-
-            {/* Clear Filters */}
-            <Button 
-              variant="outline" 
-              className="w-full mt-6 border-gray-600 text-gray-300 hover:bg-gray-700"
-              onClick={() => {
-                setSelectedCategories([]);
-                setSelectedPlatforms([]);
-                setPriceRange([10000, 100000]);
-                setFollowerRange([20000, 2000000]);
-                setSearchQuery("");
-              }}
-            >
-              Clear All Filters
-            </Button>
           </div>
         </div>
       </div>
+
+      {/* Creator Profile Modal */}
+      {selectedCreator && (
+        <CreatorProfileModal
+          creator={selectedCreator}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          isFavorited={favorites.includes(selectedCreator.id)}
+          onToggleFavorite={() => handleToggleFavorite(selectedCreator.id)}
+        />
+      )}
     </div>
   );
 }

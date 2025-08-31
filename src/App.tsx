@@ -5,7 +5,6 @@ import { ProfilePage } from "./components/ProfilePage";
 import { BrandLandingPage } from "./components/BrandLandingPage";
 import { BrandOnboarding, BrandOnboardingData } from "./components/BrandOnboarding";
 import { BrandDashboard } from "./components/BrandDashboard";
-import { ThemeProvider } from "./components/ThemeProvider";
 
 type AppView = 'landing' | 'onboarding' | 'profile' | 'brand-landing' | 'brand-onboarding' | 'brand-dashboard';
 
@@ -45,46 +44,44 @@ export default function App() {
   };
 
   return (
-    <ThemeProvider defaultTheme="light" storageKey="collably-theme">
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-        {currentView === 'landing' && (
-          <LandingPage 
-            onStartOnboarding={handleStartOnboarding}
-            onGoToBrandLanding={handleGoToBrandLanding}
-          />
-        )}
-        
-        {currentView === 'onboarding' && (
-          <Onboarding onComplete={handleOnboardingComplete} />
-        )}
-        
-        {currentView === 'profile' && profileData && (
-          <ProfilePage 
-            data={profileData} 
-            onBackToLanding={handleBackToLanding}
-          />
-        )}
+    <div className="dark min-h-screen bg-gray-900 text-white">
+      {currentView === 'landing' && (
+        <LandingPage 
+          onStartOnboarding={handleStartOnboarding}
+          onGoToBrandLanding={handleGoToBrandLanding}
+        />
+      )}
+      
+      {currentView === 'onboarding' && (
+        <Onboarding onComplete={handleOnboardingComplete} />
+      )}
+      
+      {currentView === 'profile' && profileData && (
+        <ProfilePage 
+          data={profileData} 
+          onBackToLanding={handleBackToLanding}
+        />
+      )}
 
-        {currentView === 'brand-landing' && (
-          <BrandLandingPage 
-            onStartOnboarding={handleStartBrandOnboarding}
-            onBackToCreatorLanding={handleBackToLanding}
-          />
-        )}
+      {currentView === 'brand-landing' && (
+        <BrandLandingPage 
+          onStartOnboarding={handleStartBrandOnboarding}
+          onBackToCreatorLanding={handleBackToLanding}
+        />
+      )}
 
-        {currentView === 'brand-onboarding' && (
-          <BrandOnboarding 
-            onComplete={handleBrandOnboardingComplete}
-            onBack={handleBackToBrandLanding}
-          />
-        )}
+      {currentView === 'brand-onboarding' && (
+        <BrandOnboarding 
+          onComplete={handleBrandOnboardingComplete}
+          onBack={handleBackToBrandLanding}
+        />
+      )}
 
-        {currentView === 'brand-dashboard' && brandData && (
-          <BrandDashboard 
-            onLogout={handleBackToBrandLanding}
-          />
-        )}
-      </div>
-    </ThemeProvider>
+      {currentView === 'brand-dashboard' && brandData && (
+        <BrandDashboard 
+          onLogout={handleBackToBrandLanding}
+        />
+      )}
+    </div>
   );
 }

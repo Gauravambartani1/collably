@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ArrowRight, Instagram, Youtube, Video, Users, TrendingUp, Star } from "lucide-react";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ThemeToggle } from "./ThemeToggle";
 import { motion } from "motion/react";
 
 interface LandingHeroProps {
@@ -55,33 +54,30 @@ export function LandingHero({ onStartOnboarding, onGoToBrandLanding }: LandingHe
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-orange-50 to-background dark:from-gray-900 dark:to-gray-800 overflow-hidden transition-colors duration-300">
+    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
       {/* Navigation Bar */}
       <nav className="relative z-20 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-pink-500 rounded-lg"></div>
-            <span className="font-bold text-foreground text-xl">Collably</span>
+            <span className="font-bold text-white text-xl">Collably</span>
           </div>
           
-          <div className="flex items-center space-x-3">
-            <ThemeToggle />
-            <Button
-              onClick={onGoToBrandLanding}
-              variant="outline"
-              className="border-orange-200 text-orange-600 hover:bg-orange-50 hover:border-orange-300 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-900/20 transition-colors"
-            >
-              For Brands & Agencies
-            </Button>
-          </div>
+          <Button
+            onClick={onGoToBrandLanding}
+            variant="outline"
+            className="border-orange-600 text-orange-400 hover:bg-orange-900/20 hover:border-orange-300 transition-colors"
+          >
+            For Brands & Agencies
+          </Button>
         </div>
       </nav>
 
       {/* Background Elements */}
-      <div className="absolute inset-0 opacity-30 dark:opacity-20">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-orange-200 dark:bg-orange-900 rounded-full blur-xl"></div>
-        <div className="absolute top-40 right-16 w-24 h-24 bg-pink-200 dark:bg-pink-900 rounded-full blur-xl"></div>
-        <div className="absolute bottom-40 left-20 w-28 h-28 bg-blue-200 dark:bg-blue-900 rounded-full blur-xl"></div>
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-orange-900 rounded-full blur-xl"></div>
+        <div className="absolute top-40 right-16 w-24 h-24 bg-pink-900 rounded-full blur-xl"></div>
+        <div className="absolute bottom-40 left-20 w-28 h-28 bg-blue-900 rounded-full blur-xl"></div>
       </div>
 
       <div className="relative z-10 px-6 py-8 max-w-6xl mx-auto">
@@ -96,19 +92,19 @@ export function LandingHero({ onStartOnboarding, onGoToBrandLanding }: LandingHe
           >
             {/* Brand Badge */}
             <motion.div 
-              className="inline-flex items-center space-x-2 bg-card border border-orange-200 dark:border-orange-600 px-4 py-2 rounded-full shadow-sm"
+              className="inline-flex items-center space-x-2 bg-gray-800 border border-orange-600 px-4 py-2 rounded-full shadow-sm"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.4 }}
             >
               <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-muted-foreground font-medium">Collably Beta</span>
+              <span className="text-sm text-gray-300 font-medium">Collably Beta</span>
             </motion.div>
 
             {/* Main Headline */}
             <div className="space-y-4">
               <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
@@ -121,7 +117,7 @@ export function LandingHero({ onStartOnboarding, onGoToBrandLanding }: LandingHe
               </motion.h1>
               
               <motion.p 
-                className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto lg:mx-0"
+                className="text-lg md:text-xl text-gray-300 max-w-lg mx-auto lg:mx-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
@@ -145,7 +141,7 @@ export function LandingHero({ onStartOnboarding, onGoToBrandLanding }: LandingHe
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-400">
                 ✨ Free forever • 🚀 Set up in 60 seconds • 📱 Mobile-optimized
               </p>
             </motion.div>
@@ -157,15 +153,15 @@ export function LandingHero({ onStartOnboarding, onGoToBrandLanding }: LandingHe
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
             >
-              <div className="flex items-center space-x-2 text-muted-foreground">
+              <div className="flex items-center space-x-2 text-gray-400">
                 <Users className="w-4 h-4" />
                 <span className="text-sm">1,200+ creators</span>
               </div>
-              <div className="flex items-center space-x-2 text-muted-foreground">
+              <div className="flex items-center space-x-2 text-gray-400">
                 <TrendingUp className="w-4 h-4" />
                 <span className="text-sm">3x more collabs</span>
               </div>
-              <div className="flex items-center space-x-2 text-muted-foreground">
+              <div className="flex items-center space-x-2 text-gray-400">
                 <Star className="w-4 h-4 fill-current text-yellow-400" />
                 <span className="text-sm">4.9 rating</span>
               </div>
@@ -262,7 +258,7 @@ export function LandingHero({ onStartOnboarding, onGoToBrandLanding }: LandingHe
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
                       index === currentSlide 
                         ? 'bg-orange-500 w-6' 
-                        : 'bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500'
+                        : 'bg-gray-600 hover:bg-gray-500'
                     }`}
                   />
                 ))}

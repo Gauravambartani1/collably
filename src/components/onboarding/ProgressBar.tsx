@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Check, Sparkles } from "lucide-react";
+import { Check, Star } from "lucide-react";
 
 interface ProgressBarProps {
   current: number;
@@ -11,13 +11,13 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
   const stepLabels = ["Welcome", "Vibe", "Basics", "Stats", "Collabs", "Preview", "Live!"];
 
   return (
-    <div className="px-4 py-4">
-      <div className="max-w-lg mx-auto">
+    <div className="px-6 py-4">
+      <div className="max-w-2xl mx-auto">
         {/* Progress Bar */}
         <div className="relative mb-4">
-          <div className="h-2 bg-orange-100 rounded-full overflow-hidden">
+          <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full"
+              className="h-full bg-gradient-to-r from-purple-600 to-teal-600 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5, ease: "easeOut" }}
@@ -35,10 +35,10 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
                   key={index}
                   className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
                     isCompleted
-                      ? 'bg-orange-500 border-orange-500'
+                      ? 'bg-gradient-to-r from-purple-600 to-teal-600 border-transparent'
                       : isCurrent
-                      ? 'bg-white border-orange-500 shadow-lg'
-                      : 'bg-white border-orange-200'
+                      ? 'bg-black border-purple-500 shadow-lg'
+                      : 'bg-gray-800 border-gray-700'
                   }`}
                   initial={{ scale: 0.8 }}
                   animate={{ 
@@ -52,7 +52,7 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
                   )}
                   {isCurrent && (
                     <motion.div
-                      className="w-1.5 h-1.5 bg-orange-500 rounded-full"
+                      className="w-1.5 h-1.5 bg-gradient-to-r from-purple-500 to-teal-500 rounded-full"
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1, repeat: Infinity }}
                     />
@@ -65,11 +65,11 @@ export function ProgressBar({ current, total }: ProgressBarProps) {
 
         {/* Step Info */}
         <div className="flex items-center justify-center space-x-2 text-sm">
-          <Sparkles className="w-4 h-4 text-orange-500" />
-          <span className="text-gray-600">
+          <Star className="w-4 h-4 text-purple-400" />
+          <span className="text-gray-300">
             Step {current + 1} of {total}: {stepLabels[current]}
           </span>
-          <span className="text-orange-500 font-medium">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400 font-medium">
             {Math.round(progress)}% complete
           </span>
         </div>

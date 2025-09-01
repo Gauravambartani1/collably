@@ -15,8 +15,10 @@ export interface OnboardingData {
   socialLinks: {
     instagram: string;
     tiktok: string;
+    youtube?: string;
   };
   tagline: string;
+  bio: string;
   vibe: string;
   stats: {
     followers: string;
@@ -24,6 +26,12 @@ export interface OnboardingData {
     platform: string;
   };
   collabOptions: string[];
+  pricing: {
+    post: number;
+    story: number;
+    reel: number;
+    custom: boolean;
+  };
 }
 
 interface OnboardingProps {
@@ -37,16 +45,24 @@ export function Onboarding({ onComplete }: OnboardingProps) {
     handle: "",
     socialLinks: {
       instagram: "",
-      tiktok: ""
+      tiktok: "",
+      youtube: ""
     },
     tagline: "",
+    bio: "",
     vibe: "",
     stats: {
       followers: "",
       engagement: "",
       platform: ""
     },
-    collabOptions: []
+    collabOptions: [],
+    pricing: {
+      post: 0,
+      story: 0,
+      reel: 0,
+      custom: false
+    }
   });
 
   const totalSteps = 7;
@@ -96,25 +112,33 @@ export function Onboarding({ onComplete }: OnboardingProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-32 h-32 bg-purple-900/20 rounded-full blur-xl"></div>
+        <div className="absolute top-40 right-16 w-24 h-24 bg-teal-900/20 rounded-full blur-xl"></div>
+        <div className="absolute bottom-40 left-20 w-28 h-28 bg-purple-800/20 rounded-full blur-xl"></div>
+        <div className="absolute bottom-20 right-10 w-20 h-20 bg-teal-800/20 rounded-full blur-xl"></div>
+      </div>
+
       {/* Progress Bar - Only show after welcome step */}
       {currentStep > 0 && (
-        <div className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-orange-100">
+        <div className="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
           <ProgressBar current={currentStep} total={totalSteps} />
         </div>
       )}
 
       {/* Main Content */}
-      <div className="flex flex-col min-h-screen">
+      <div className="relative z-10 flex flex-col min-h-screen">
         <div className="flex-1 flex items-center justify-center p-4">
-          <div className="w-full max-w-lg mx-auto">
+          <div className="w-full max-w-2xl mx-auto">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
               >
                 {steps[currentStep]}
               </motion.div>
